@@ -43,6 +43,10 @@ You can add as many colors or steps as required but there will be a limit to wha
 
 <h2>Release Notes</h1>
 
+<b>1.2.2</b>
+
+- No code changes, updated package links for github
+
 <b>1.2.1</b>
 
 - Bug fix, twinkly-get did not forward the message
