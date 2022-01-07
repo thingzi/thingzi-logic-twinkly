@@ -1,0 +1,17 @@
+{
+  "name": "thingzi-logic-twinkly",
+  "version": "1.2.1",
+  "description": "Twinkly lights control via node red",
+  "bundleDependencies": false,
+  "dependencies": {
+  },
+  "keywords": [ "node-red", "lights", "halloween", "christmas", "twinkly", "led", "decorations" ],
+  "author": "Bryan Black <bry@bryzi.net>",
+  "license": "MIT",
+  "node-red" : {
+    "nodes": {
+        "twinkly-get": "twinkly-get.js",
+        "twinkly-set": "twinkly-set.js"
+    }
+  }
+}

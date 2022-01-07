@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    RED.nodes.registerType('thingzi-twinkly-set', {
+        category: 'lights',
+        color: '#eb6060',
+        defaults: {
+            name: {value: ''},
+            address: {value: ''},
+            debug: {value: false}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "twinkly.png",
+        label: function () {
+            return this.name || "twinkly set";
+        },
+        paletteLabel: "twinkly set",
+        oneditprepare: function () {
+            $('#node-input-debug').prop("checked", this.debug);
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="thingzi-twinkly-set">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-address"><i class="fa fa-tag"></i> IP Address</label>
+        <input type="text" id="node-input-address" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
+        <input type="checkbox" id="node-input-debug" style="width: 20px; margin: 0">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="thingzi-twinkly-set">
+    <p>Control twinkly lights.  Note that the current on/off state only updates on deploy.
+       or if set from node red.  This will be improved in a future version.
+    </p>
+
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt class="optional">payload <span class="property-type">string</span></dt>
+        <dd> Pass <code>ON</code> or <code>OFF</code> to set the power mode</dd>        
+        <dt class="optional">brightness <span class="property-type">string</span></dt>
+        <dd> Value between 1 & 100 to set the brightness</dd>
+        <dt class="optional">color <span class="property-type">object</span></dt>
+        <dd> Color template containing <i>mode</i>: (solid|blink|loop), <i>delay</i>: (in milliseconds), <i>steps</i>: (intermediate color steps), <i>colors</i>: (array of RGB/RGBW color values)</dd>
+    </dl>
+
+</script>

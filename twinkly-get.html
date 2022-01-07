@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    RED.nodes.registerType('thingzi-twinkly-get', {
+        category: 'lights',
+        color: '#eb6060',
+        defaults: {
+            name: {value: ''},
+            address: {value: ''},
+            debug: {value: false}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "twinkly.png",
+        label: function () {
+            return this.name || "twinkly get";
+        },
+        paletteLabel: "twinkly get",
+        oneditprepare: function () {
+            $('#node-input-debug').prop("checked", this.debug);
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="thingzi-twinkly-get">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-address"><i class="fa fa-tag"></i> IP Address</label>
+        <input type="text" id="node-input-address" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
+        <input type="checkbox" id="node-input-debug" style="width: 20px; margin: 0">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="thingzi-twinkly-get">
+    <p>Trigger this node to get the on/off state of any twinkly light.</p>
+
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt class="optional">payload <span class="property-type">string</span></dt>
+        <dd> Contains <code>ON</code> or <code>OFF</code> based on current power state</dd>
+    </dl>
+
+</script>
