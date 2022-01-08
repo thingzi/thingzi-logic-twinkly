@@ -41,9 +41,13 @@ The example below animates between red & blue using 10 steps. This results in 20
 
 You can add as many colors or steps as required but there will be a limit to what the twinkly device can hold in memory which i havent tested yet.
 
+If you like/use this node, coffee makes me happy and it keeps me coding when i should be sleeping...
+
+<a href="https://www.buymeacoffee.com/thingzi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 200px !important;" ></a>
+
 <h2>Release Notes</h1>
 
-<b>1.2.2</b>
+<b>1.2.3</b>
 
 - No code changes, updated package links for github
 
