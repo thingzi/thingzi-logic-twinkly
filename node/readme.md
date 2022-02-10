@@ -47,6 +47,10 @@ If you like/use this node, coffee makes me happy and it keeps me coding when i s
 
 <h2>Release Notes</h1>
 
+<b>1.2.4</b>
+
+- Fix dependecy on "request" library.  Will be replaced in a future version.
+
 <b>1.2.3</b>
 
 - No code changes, updated package links for github
