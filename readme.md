@@ -44,6 +44,3 @@ You can add as many colors or steps as required but there will be a limit to wha
 If you like/use this node, coffee makes me happy and it keeps me coding when i should be sleeping...
 
 <a href="https://www.buymeacoffee.com/thingzi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 200px !important;" ></a>
-
-Releases
-https://github.com/thingzi/thingzi-logic-twinkly/releases
