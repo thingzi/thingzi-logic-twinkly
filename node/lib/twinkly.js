@@ -30,10 +30,7 @@ class Twinkly {
     isOn() {
         return this.initPromise
             .then(() => this.requestService.get("led/mode"))
-            .then(json => { 
-                console.log(`MODE=${json.mode}`)
-                return json.mode !== "off"
-            });
+            .then(json => json.mode !== "off" );
     }
 
     ensureOn(on = true) {
