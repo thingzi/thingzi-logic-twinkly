@@ -68,21 +68,23 @@ module.exports = function(RED) {
             let mode = msg.hasOwnProperty('mode') ? msg.mode.toString() : null;
             let color = msg.hasOwnProperty('color') ? msg.color : null;
 
+            var set = undefined;
+
             // Set power
             if (power) {
                 let isOn = power.toLowerCase() === 'on';
-                twinkly.setBrightness(isOn ? 100 : 0);
+                set = twinkly.setBrightness(isOn ? 100 : 0);
             }
 
             // Set brightness
             if (brightness) {
                 let bri = parseInt(brightness);
-                twinkly.setBrightness(bri);
+                set = twinkly.setBrightness(bri);
             }
 
             // Set mode
             if (mode) {
-                twinkly.ensureMode(mode);
+                set = twinkly.ensureMode(mode);
             }
 
             // Set color mode
@@ -101,12 +103,21 @@ module.exports = function(RED) {
                 // Render colours
                 let colors = renderColors(color.colors, color.steps);
                 if (color.mode === 'blink') {
-                    twinkly.setBlinkingColors(colors, color.delay);
+                    set = twinkly.setBlinkingColors(colors, color.delay);
                 } else if (color.mode === 'loop') {
-                    twinkly.setLoopingColors(colors, color.delay);
+                    set = twinkly.setLoopingColors(colors, color.delay);
                 } else { // solid
-                    twinkly.setColors(colors);
+                    set = twinkly.setColors(colors);
                 }
+            }
+
+            // Update State
+            if (set) {
+                set
+                    .then(() => twinkly.isOn())
+                    .then(state => {
+                        node.status({fill:'green', shape:'dot', text: `${state ? 'ON' : 'OFF'}`});
+                    });
             }
 
             done && done();
