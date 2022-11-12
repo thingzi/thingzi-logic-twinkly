@@ -65,21 +65,24 @@ module.exports = function(RED) {
             // Message properties (can be part of same message)
             let power = msg.hasOwnProperty('payload') ? msg.payload.toString() : null;
             let brightness = msg.hasOwnProperty('brightness') ? msg.brightness.toString() : null;
+            let mode = msg.hasOwnProperty('mode') ? msg.mode.toString() : null;
             let color = msg.hasOwnProperty('color') ? msg.color : null;
 
             // Set power
             if (power) {
                 let isOn = power.toLowerCase() === 'on';
-                twinkly.ensureOn(isOn)
-                    .then(() => {
-                        node.status({fill:'green', shape:'dot', text: isOn ? 'ON' : 'OFF'});
-                    });
+                twinkly.setBrightness(isOn ? 100 : 0);
             }
 
             // Set brightness
             if (brightness) {
                 let bri = parseInt(brightness);
                 twinkly.setBrightness(bri);
+            }
+
+            // Set mode
+            if (mode) {
+                twinkly.ensureMode(mode);
             }
 
             // Set color mode
