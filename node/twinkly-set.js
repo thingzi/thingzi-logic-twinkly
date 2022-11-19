@@ -12,6 +12,7 @@ module.exports = function(RED) {
         }
 
         // Configuration
+        this.onMode = config.onMode || "movie";
         this.debug = config.debug;
         
         const twinkly = new Twinkly((msg, important) => {
@@ -70,21 +71,18 @@ module.exports = function(RED) {
 
             var set = undefined;
 
-            // Set power
-            if (power) {
-                let isOn = power.toLowerCase() === 'on';
-                set = twinkly.setBrightness(isOn ? 100 : 0);
-            }
-
             // Set brightness
             if (brightness) {
                 let bri = parseInt(brightness);
                 set = twinkly.setBrightness(bri);
             }
 
-            // Set mode
+            // Set mode / power
             if (mode) {
                 set = twinkly.ensureMode(mode);
+            } else if (power) {
+                let isOn = power.toLowerCase() === 'on';
+                set = twinkly.ensureMode(isOn ? node.onMode : 'off');
             }
 
             // Set color mode
@@ -103,11 +101,11 @@ module.exports = function(RED) {
                 // Render colours
                 let colors = renderColors(color.colors, color.steps);
                 if (color.mode === 'blink') {
-                    set = twinkly.setBlinkingColors(colors, color.delay);
+                    twinkly.setBlinkingColors(colors, color.delay);
                 } else if (color.mode === 'loop') {
-                    set = twinkly.setLoopingColors(colors, color.delay);
+                    twinkly.setLoopingColors(colors, color.delay);
                 } else { // solid
-                    set = twinkly.setColors(colors);
+                    twinkly.setColors(colors);
                 }
             }
 

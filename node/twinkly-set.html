@@ -5,7 +5,8 @@
         defaults: {
             name: {value: ''},
             address: {value: ''},
-            debug: {value: false}
+            onMode: {value: 'movie'},
+            debug: {value: false},
         },
         inputs: 1,
         outputs: 0,
@@ -16,6 +17,11 @@
         paletteLabel: "twinkly set",
         oneditprepare: function () {
             $('#node-input-debug').prop("checked", this.debug);
+
+            // Set default for users upgrading
+            if (!$('#node-input-onMode').val()) {
+                $('#node-input-onMode').val('movie')
+            }
         }
     });
 </script>
@@ -28,6 +34,15 @@
     <div class="form-row">
         <label for="node-input-address"><i class="fa fa-tag"></i> IP Address</label>
         <input type="text" id="node-input-address" placeholder="">
+    </div>
+    <div class="form-row">
+        <label title="Mode to use for 'ON' event" for="node-input-onMode"><i class="fa fa-power-off"></i> On Mode</label>
+        <select id="node-input-onMode" style="width: 200px">
+            <option value="movie">Movie</option>
+            <option value="effect">Effect</option>
+            <option value="color">Color</option>
+            <option value="playlist">Playlist</option>
+        </select>
     </div>
     <div class="form-row">
         <label for="node-input-debug"><i class="fa fa-bug"></i> Debug</label>
@@ -43,11 +58,11 @@
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt class="optional">payload <span class="property-type">string</span></dt>
-        <dd> Pass <code>ON</code> or <code>OFF</code> to set the power mode</dd>        
+        <dd> Pass <code>ON</code> or <code>OFF</code> to set the power mode.  The mode used for on is defined in the node settings.</dd>        
         <dt class="optional">brightness <span class="property-type">string</span></dt>
         <dd> Value between 1 & 100 to set the brightness</dd>
         <dt class="optional">mode <span class="property-type">string</span></dt>
-        <dd> Twinkly mode <code>off</code>, <code>movie</code>, <code>effect</code> or <code>color</code></dd>
+        <dd> Twinkly mode <code>off</code>, <code>movie</code>, <code>effect</code>, <code>color</code> or <code>playlist</code></dd>
         <dt class="optional">color <span class="property-type">object</span></dt>
         <dd> Color template containing <i>mode</i>: (solid|blink|loop), <i>delay</i>: (in milliseconds), <i>steps</i>: (intermediate color steps), <i>colors</i>: (array of RGB/RGBW color values)</dd>
     </dl>
