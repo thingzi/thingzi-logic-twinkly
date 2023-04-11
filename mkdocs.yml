@@ -1,4 +1,4 @@
 site_name: Twinkly Lights
-docs_dir: .
+docs_dir: node
 nav:
   - Overview: 'readme.md'
