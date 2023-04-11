@@ -5,6 +5,7 @@ metadata:
   description: Twinkly lighting integration for node red
   annotations:
     github.com/project-slug: thingzi/thingzi-logic-twinkly
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: nodered
   lifecycle: production
