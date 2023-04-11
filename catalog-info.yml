@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: thingzi-logic-twinkly
+  annotations:
+    github.com/project-slug: thingzi/thingzi-logic-twinkly
+spec:
+  type: component
+  owner: nodered
