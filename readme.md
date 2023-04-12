@@ -8,7 +8,7 @@ Enter the IP address of your twinkly lights in the address field.  On deployment
 
 - Send `ON` or `OFF` in the 'payload' property to set the power state of the lights.
 - Send a value 0->100 in the 'brightness' property to set the brightness.
-- Send `off`, `movie`, `effect` or `color`in the 'mode' property.
+- Send `off`, `movie`, `effect` or `color` in the 'mode' property.
 - Send a color template in the 'color' property to set the led colors. 3 simple color modes are currently supported.
 
 These nodes  use the twinkly local API so your node red instance must be on the same local network.  Also, as the API is not event based, you can use the twinkly-get node to read or poll the state 7 details of a light as required.
@@ -20,7 +20,7 @@ The color template is a JSON object used to control the LEDs and has the followi
 - **mode**, color mode to use, either...
   - *solid* LEDs are alternated along the length of the lights and remain static
   - *blink* All LEDs are set to the same color and transition through all colors.
-  - *Loop* LEDs are alternated along the length of the lights and animated.
+  - *loop* LEDs are alternated along the length of the lights and animated.
 - **delay**, time between each color change in ms.  If using a larger number of steps, lower this value to change colours more quickly.  Not used in solid mode.
 - **steps**, number of steps between each color change.  Allows for smoother transitions between colours without the need to define each step manually.
 - **colors**, array of colours to use of the form [ R, G, B, W ].  If you only have RGB lights, W will be ignored or it can be ommitted.
