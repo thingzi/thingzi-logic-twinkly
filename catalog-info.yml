@@ -6,6 +6,10 @@ metadata:
   annotations:
     github.com/project-slug: thingzi/thingzi-logic-twinkly
     backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://flows.nodered.org/node/thingzi-logic-twinkly
+      title: View in NodeRed flows
+      icon: flowsheet
 spec:
   type: nodered
   lifecycle: production
