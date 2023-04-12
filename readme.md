@@ -28,15 +28,15 @@ The color template is a JSON object used to control the LEDs and has the followi
 The example below animates between red & blue using 10 steps. This results in 20 frames overall animating from red to blue and back to red again with 50ms between each frame.
 
 ```
-{. 
-    "mode": "blink",  
-    "delay": 50,  
-    "steps": 10,  
-    "colors": [. 
-        [ 255, 0, 0, 0 ],  
-        [ 0, 0, 255, 0 ]. 
-    ]. 
-}. 
+{
+    "mode": "blink",
+    "delay": 50,
+    "steps": 10,
+    "colors": [
+        [ 255, 0, 0, 0 ],
+        [ 0, 0, 255, 0 ]
+    ]
+}
 ```
 
 You can add as many colors or steps as required but there will be a limit to what the twinkly device can hold in memory which i havent tested yet.
