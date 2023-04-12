@@ -6,9 +6,9 @@ Supports on/off, brightness & color settings for local lights based on IP addres
 
 Enter the IP address of your twinkly lights in the address field.  On deployment the ON/OFF state of the lights or an error will be shown on the node status.  To control the lights...
 
-- Send <code>ON</code> or <code>OFF</code> in the 'payload' property to set the power state of the lights.
+- Send `ON` or `OFF` in the 'payload' property to set the power state of the lights.
 - Send a value 0->100 in the 'brightness' property to set the brightness.
-- Send <code>off</code>, <code>movie</code>, <code>effect</code> or <code>color</code> in the 'mode' property.
+- Send `off`, `movie`, `effect` or `color`in the 'mode' property.
 - Send a color template in the 'color' property to set the led colors. 3 simple color modes are currently supported.
 
 These nodes  use the twinkly local API so your node red instance must be on the same local network.  Also, as the API is not event based, you can use the twinkly-get node to read or poll the state 7 details of a light as required.
