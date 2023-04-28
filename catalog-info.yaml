@@ -13,4 +13,4 @@ metadata:
 spec:
   type: nodered
   lifecycle: production
-  owner: bryzi
+  owner: group:nodered
