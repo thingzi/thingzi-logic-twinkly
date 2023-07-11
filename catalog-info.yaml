@@ -2,6 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: thingzi-logic-twinkly
+  title: thingZi Logic Twinkly
   description: Twinkly lighting integration for node red
   annotations:
     github.com/project-slug: thingzi/thingzi-logic-twinkly
