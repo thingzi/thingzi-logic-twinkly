@@ -12,7 +12,7 @@ module.exports = function(RED) {
         }
 
         // Configuration
-        this.onMode = config.onMode || "movie";
+        this.onMode = config.onMode ?? "movie";
         this.debug = config.debug;
         
         const twinkly = new Twinkly((msg, important) => {
