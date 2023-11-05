@@ -62,9 +62,9 @@ class Frame {
                     array[colorCount * i + 2] = color[2]; // B
                 }
             } else {
-                array[colorCount * i] = 255;     // R
-                array[colorCount * i + 1] = 255; // G
-                array[colorCount * i + 2] = 255; // B
+                array[colorCount * i] = 0;     // R
+                array[colorCount * i + 1] = 0; // G
+                array[colorCount * i + 2] = 0; // B
                 console.error(`getArray: unknown color format ${color} len=${color.length}`);
             }
         }
