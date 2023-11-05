@@ -1,6 +1,6 @@
 {
   "name": "thingzi-logic-twinkly",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Twinkly lights control via node red",
   "bundleDependencies": false,
   "dependencies": {

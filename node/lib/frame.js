@@ -32,7 +32,7 @@ class Frame {
             color.forEach(c => scale = limitBrightnessScale(c, scale));
             this.put(index, color.map(c => c * scale));
         } else {
-            throw `unknown color format ${color}`;
+            console.error(`scaleBrightness: unknown color format ${color} len=${color.length}`);
         }
     }
 
@@ -62,7 +62,10 @@ class Frame {
                     array[colorCount * i + 2] = color[2]; // B
                 }
             } else {
-                throw `unknown color format ${color}`;
+                array[colorCount * i] = 255;     // R
+                array[colorCount * i + 1] = 255; // G
+                array[colorCount * i + 2] = 255; // B
+                console.error(`getArray: unknown color format ${color} len=${color.length}`);
             }
         }
         return array;

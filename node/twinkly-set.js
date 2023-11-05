@@ -27,9 +27,6 @@ module.exports = function(RED) {
             if (!colors || colors.length === 0)
                 return [[255,255,255,255]];
 
-            if (colors.length === 1 || steps === 1)
-                return colors;
-
             // Check / fix colors
             for (var c = 0; c < colors.length - 1; c++) {
                 let col = colors[c];
@@ -41,7 +38,7 @@ module.exports = function(RED) {
             }
 
             // Render intermediate colors - linear for now
-            const stepFactor = 1 / (steps - 1);
+            const stepFactor = 1 / steps;
             let renderArray = [];
             for (var c = 0; c < colors.length; c++) {
                 let c1 = colors[c];
@@ -100,6 +97,7 @@ module.exports = function(RED) {
 
                 // Render colours
                 let colors = renderColors(color.colors, color.steps);
+                node.log(colors);
                 if (color.mode === 'blink') {
                     twinkly.setBlinkingColors(colors, color.delay);
                 } else if (color.mode === 'loop') {
