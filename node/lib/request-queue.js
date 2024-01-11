@@ -76,8 +76,7 @@ class RequestQueue {
                 }
             } else {
                 try {
-                    let json = JSON.parse(body);
-                    this.log(json);
+                    this.log(body);
                     resolve(JSON.parse(body));
                 } catch (e) {
                     reject(e);
@@ -102,14 +101,17 @@ class RequestQueue {
                 }
             }
         })
-            .then(json => {
-                if (!isAuth) {
-                    this.queue.shift();
-                }
-                this.nextRequest();
-                return json;
-            })
-            .catch(error => this.log(error.message, true));
+        .then(json => {
+            if (!isAuth) {
+                this.queue.shift();
+            }
+            this.nextRequest();
+            return json;
+        })
+        .catch(error => {
+            this.queue = [];
+            this.log(error.message, true);
+        });
     }
 
     get(url, isAuth = false) {
