@@ -1,4 +1,4 @@
-const request = require("request");
+const axios = require("axios");
 
 const retryLimit = 2;
 
@@ -48,41 +48,40 @@ class RequestQueue {
     performRequest(element) {
         let {request: req, resolve, reject} = element;
 
-        req.baseUrl = this.baseUrl;
-        req.resolveWithFullResponse = true;
+        req.baseURL = this.baseUrl;
         if (this.token) {
+            req.headers = req.headers || {};
             req.headers["X-Auth-Token"] = this.token;
         } else if (!this.isAuthenticating) {
             return this.authenticate();
         }
 
-        this.log(`${req.method} ${req.baseUrl}/${req.url}`);
-        if (req.body) {
-            this.log(req.body);
+        this.log(`${req.method} ${req.baseURL}/${req.url}`);
+        if (req.data) {
+            this.log(req.data);
         }
 
-        request(req, (error, response, body) => {
-            this.retryCount = 0;
-            if (error) {
-                this.log(error, true);
-                reject(error);
-            } else if (response.statusCode === 401) {
-                this.log("Auth token expired");
-                this.retryCount++;
-                if (this.retryCount < retryLimit) {
-                    this.authenticate();
+        axios(req)
+            .then(response => {
+                this.retryCount = 0;
+                this.log(response.data);
+                resolve(response.data);
+            })
+            .catch(error => {
+                this.retryCount = 0;
+                if (error.response && error.response.status === 401) {
+                    this.log("Auth token expired");
+                    this.retryCount++;
+                    if (this.retryCount < retryLimit) {
+                        this.authenticate();
+                    } else {
+                        reject();
+                    }
                 } else {
-                    reject();
+                    this.log(error.message, true);
+                    reject(error);
                 }
-            } else {
-                try {
-                    this.log(body);
-                    resolve(JSON.parse(body));
-                } catch (e) {
-                    reject(e);
-                }
-            }
-        });
+            });
     }
 
     addRequest(isAuth, request) {
@@ -130,7 +129,7 @@ class RequestQueue {
                 "Content-Type": mime,
                 "Content-Length": length, // Twinkly fails to parse JSON without Content-Length header
             },
-            body: body,
+            data: body,
         });
     }
 

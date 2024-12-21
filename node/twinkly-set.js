@@ -21,15 +21,19 @@ module.exports = function(RED) {
         }, config.address);
 
         // Render colors and intermediate colors
-        function renderColors(colors, steps)
+        function renderColors(colors, steps, presets)
         {
             // Boundary checks
             if (!colors || colors.length === 0)
                 return [[255,255,255,255]];
 
-            // Check / fix colors
-            for (var c = 0; c < colors.length - 1; c++) {
+            // Check / map / fix colors
+            for (var c = 0; c < colors.length; c++) {
                 let col = colors[c];
+                if (typeof col === 'string' && presets) {
+                    col = presets[col];
+                }
+                
                 if (col.length < 3 || col.length > 4) {
                     colors[c] = [0,0,0,0];
                 } else if (col.length === 3) {
@@ -96,8 +100,7 @@ module.exports = function(RED) {
                 }
 
                 // Render colours
-                let colors = renderColors(color.colors, color.steps);
-                node.log(colors);
+                let colors = renderColors(color.colors, color.steps, color.presets);
                 if (color.mode === 'blink') {
                     twinkly.setBlinkingColors(colors, color.delay);
                 } else if (color.mode === 'loop') {
