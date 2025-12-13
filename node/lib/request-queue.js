@@ -79,6 +79,8 @@ class RequestQueue {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
+                    // Handle authentication failures (e.g., after firmware updates)
+                    // Automatically re-authenticate and retry the original request
                     this.log("Auth token expired, re-authenticating");
                     this.token = null; // Clear invalid token
                     element.retryCount = retryCount + 1;
