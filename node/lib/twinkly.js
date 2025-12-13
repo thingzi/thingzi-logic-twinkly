@@ -26,6 +26,12 @@ class Twinkly {
                 this.ledProfile = json.led_profile;
             });
     }
+    
+    reinitialize() {
+        // Force re-initialization (useful after firmware updates)
+        this.initPromise = this.queryDeviceInfo();
+        return this.initPromise;
+    }
 
     isOn() {
         return this.initPromise
@@ -51,33 +57,66 @@ class Twinkly {
 
     setColor(color) {
         return this.initPromise
-            .then(() => this.setMovie(Movie.repeatedColors(this.ledCount, [color])));
+            .then(() => {
+                if (!this.ledCount) {
+                    throw new Error("Device not initialized - LED count unknown");
+                }
+                return this.setMovie(Movie.repeatedColors(this.ledCount, [color]));
+            });
     }
 
     setColors(colors) {
         return this.initPromise
-            .then(() => this.setMovie(Movie.repeatedColors(this.ledCount, colors)));
+            .then(() => {
+                if (!this.ledCount) {
+                    throw new Error("Device not initialized - LED count unknown");
+                }
+                return this.setMovie(Movie.repeatedColors(this.ledCount, colors));
+            });
     }
 
     setBlinkingColors(colors, delay = 2000) {
         return this.initPromise
-            .then(() => this.setMovie(Movie.blinkingColors(this.ledCount, delay, colors)));
+            .then(() => {
+                if (!this.ledCount) {
+                    throw new Error("Device not initialized - LED count unknown");
+                }
+                return this.setMovie(Movie.blinkingColors(this.ledCount, delay, colors));
+            });
     }
 
     setTwinklingColors(colors, delay = 200) {
         return this.initPromise
-            .then(() => this.setMovie(Movie.twinklingColors(this.ledCount, 100, delay, colors)));
+            .then(() => {
+                if (!this.ledCount) {
+                    throw new Error("Device not initialized - LED count unknown");
+                }
+                return this.setMovie(Movie.twinklingColors(this.ledCount, 100, delay, colors));
+            });
     }
 
     setLoopingColors(colors, delay = 500) {
         return this.initPromise
-            .then(() => this.setMovie(Movie.loopingColors(this.ledCount, delay, colors)));
+            .then(() => {
+                if (!this.ledCount) {
+                    throw new Error("Device not initialized - LED count unknown");
+                }
+                return this.setMovie(Movie.loopingColors(this.ledCount, delay, colors));
+            });
     }
 
     setMovie(movie) {
-        console.assert(movie.ledCount === this.ledCount);
+        // Upload movie/animation data to the device
+        // Requires device to be initialized (ledCount must be set)
         return this.initPromise
-            .then(() => this.requestService.postOctet("led/movie/full", movie.getArray(this.ledProfile)))
+            .then(() => {
+                // Safety check: ensure LED count matches and is initialized
+                // Prevents errors when device info hasn't loaded yet
+                if (!this.ledCount || movie.ledCount !== this.ledCount) {
+                    throw new Error(`LED count mismatch: device has ${this.ledCount}, movie has ${movie.ledCount}`);
+                }
+                return this.requestService.postOctet("led/movie/full", movie.getArray(this.ledProfile));
+            })
             .then(() => this.requestService.postJson("led/movie/config", {
                 frame_delay: movie.delay,
                 frames_number: movie.frameCount,
