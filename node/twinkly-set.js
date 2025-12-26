@@ -203,9 +203,11 @@ module.exports = function(RED) {
                     node.status({fill:'green', shape:'dot', text: `${state ? 'ON' : 'OFF'}`});
                 })
                 .catch(error => {
-                    // If initialization fails (e.g., after firmware update), show error status
-                    // User can redeploy to re-initialize
-                    node.status({fill:'yellow', shape:'dot', text: 'Init failed - redeploy'});
+                    // Use the error message from initError if available, otherwise use the caught error
+                    const errorMsg = twinkly.initError ? twinkly.initError.message : (error.message || 'Init failed');
+                    // Truncate if too long for status display
+                    const statusMsg = errorMsg.length > 30 ? errorMsg.substring(0, 27) + '...' : errorMsg;
+                    node.status({fill:'yellow', shape:'dot', text: statusMsg});
                     if (node.debug) node.warn(`[DEBUG] Initial status check failed: ${error.message}`);
                 });
         }
